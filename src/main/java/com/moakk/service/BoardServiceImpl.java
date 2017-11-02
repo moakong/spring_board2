@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.moakk.mapper.BoardMapper;
 import com.moakk.vo.BoardVO;
+import com.moakk.vo.PageVO;
 
 
 
@@ -28,34 +29,25 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void modify(BoardVO board) throws Exception {
+	public void update(BoardVO board) throws Exception {
 		mapper.update(board);
 	}
 
 	@Override
-	public void remove(Integer bno) throws Exception {
+	public void delete(Integer bno) throws Exception {
 		mapper.delete(bno);
 	}
 
 	@Override
-	public List<BoardVO> listAll() throws Exception {
-		return mapper.listAll();
+	public List<BoardVO> list(PageVO page) throws Exception {
+		return mapper.list(page);
 	}
 
-  
-//  
-//  @Override
-//  public List<BoardVO> listCriteria(Criteria cri) throws Exception {
-//
-//    return dao.listCriteria(cri);
-//  }
-//
-//  @Override
-//  public int listCountCriteria(Criteria cri) throws Exception {
-//
-//    return dao.countPaging(cri);
-//  }
-//
+	@Override
+	public int totalBoardCnt(PageVO page) throws Exception {
+		return mapper.totalBoardCnt(page);
+	}
+
 //  @Override
 //  public List<BoardVO> listSearchCriteria(SearchCriteria cri) throws Exception {
 //

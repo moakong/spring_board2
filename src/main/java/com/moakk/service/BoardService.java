@@ -3,6 +3,7 @@ package com.moakk.service;
 import java.util.List;
 
 import com.moakk.vo.BoardVO;
+import com.moakk.vo.PageVO;
 
 
 public interface BoardService {
@@ -11,16 +12,14 @@ public interface BoardService {
 
   public BoardVO read(Integer bno) throws Exception;
 
-  public void modify(BoardVO board) throws Exception;
+  public void update(BoardVO board) throws Exception;
 
-  public void remove(Integer bno) throws Exception;
+  public void delete(Integer bno) throws Exception;
 
-  public List<BoardVO> listAll() throws Exception;
+  public List<BoardVO> list(PageVO page) throws Exception;
 
-//  public List<BoardVO> listCriteria(Criteria cri) throws Exception;
-//
-//  public int listCountCriteria(Criteria cri) throws Exception;
-//
+  public int totalBoardCnt(PageVO page) throws Exception;
+
 //  public List<BoardVO> listSearchCriteria(SearchCriteria cri) 
 //      throws Exception;
 //

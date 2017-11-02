@@ -1,4 +1,4 @@
-package com.moakk.webboard;
+package com.moakk.controller;
 
 import javax.inject.Inject;
 

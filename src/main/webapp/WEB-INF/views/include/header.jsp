@@ -28,8 +28,8 @@
     <link href="/resources/plugins/animate-css/animate.css" rel="stylesheet" />
 
     <!-- Morris Chart Css-->
-    <link href="/resources/plugins/morrisjs/morris.css" rel="stylesheet" />
-
+<!--     <link href="/resources/plugins/morrisjs/morris.css" rel="stylesheet" />
+ -->
     <!-- Custom Css -->
     <link href="/resources/css/style.css" rel="stylesheet">
 
@@ -75,7 +75,7 @@
             <div class="navbar-header">
                 <a href="javascript:void(0);" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false"></a>
                 <a href="javascript:void(0);" class="bars"></a>
-                <a class="navbar-brand" href="index.html"> Moakk' Board </a>
+                <a class="navbar-brand" href="/"> Moakk' Board </a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -306,7 +306,7 @@
                 <ul class="list">
                     <li class="header">MAIN NAVIGATION</li>
                     <li class="active">
-                        <a href="index.html">
+                        <a href="/">
                             <i class="material-icons">home</i>
                             <span>Home</span>
                         </a>
