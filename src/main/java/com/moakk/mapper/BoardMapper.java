@@ -1,6 +1,7 @@
 package com.moakk.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.moakk.vo.BoardVO;
 import com.moakk.vo.PageVO;
@@ -18,5 +19,8 @@ public interface BoardMapper {
 	public List<BoardVO> list(PageVO page) throws Exception;
 
 	public int totalBoardCnt(PageVO page) throws Exception;
+	
+	public void updateReplyCnt(Map<String, Object> param) throws Exception;
 
+	public void updateViewCnt(Integer bno) throws Exception;
 }

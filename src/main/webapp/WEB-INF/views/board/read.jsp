@@ -180,7 +180,8 @@
   
   
 	<script id="rpList" type="text/x-handlebars-template">
-		{{#each .}}
+		<div class="m-l-10 font-bold font-15">총 {{pageMaker.totalCount}}개</div>
+		{{#each list}}
         <div class="media">
             <div class="media-left">
                 <a href="javascript:void(0);">
@@ -257,7 +258,7 @@
 	    		
 	    		$.ajax({
 					type:'delete',
-					url:'/replies/' + rno,
+					url:'/replies/' + bno + '/' + rno,
 					headers: { 
 					      "Content-Type": "application/json",
 					      "X-HTTP-Method-Override": "DELETE" },
@@ -365,7 +366,7 @@
   	var getRpPage = function(pageInfo) {
   		$.getJSON(pageInfo, function(data) {
 			console.dir(data);
-			printData(data.list, $("#rpListDiv"), $('#rpList') );
+			printData(data, $("#rpListDiv"), $('#rpList') ); ///////////////////////////////////////
 			//printData(data.list, $("#rpPaginationDiv"), $('#rpPagination') );
 			getRpPagination(data.pageMaker, $("#rpPaginationDiv"));
 		})

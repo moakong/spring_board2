@@ -1,10 +1,13 @@
 package com.moakk.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.moakk.mapper.BoardMapper;
 import com.moakk.vo.BoardVO;
@@ -23,8 +26,11 @@ public class BoardServiceImpl implements BoardService {
 		mapper.create(board);
 	}
 
+	@Transactional
 	@Override
 	public BoardVO read(Integer bno) throws Exception {
+		mapper.updateViewCnt(bno);
+		
 		return mapper.read(bno);
 	}
 
@@ -48,16 +54,22 @@ public class BoardServiceImpl implements BoardService {
 		return mapper.totalBoardCnt(page);
 	}
 
-//  @Override
-//  public List<BoardVO> listSearchCriteria(SearchCriteria cri) throws Exception {
-//
-//    return dao.listSearch(cri);
-//  }
-//
-//  @Override
-//  public int listSearchCount(SearchCriteria cri) throws Exception {
-//
-//    return dao.listSearchCount(cri);
-//  }
+	@Override
+	public void updateReplyCnt(Integer bno, int amount) throws Exception {
+
+		Map<String, Object> paramMap = new HashMap<>();
+
+		paramMap.put("bno", bno);
+		paramMap.put("amount", amount);
+		
+		mapper.updateReplyCnt(paramMap);
+	}
+
 
 }
+
+
+
+
+
+

@@ -20,9 +20,6 @@ public interface BoardService {
 
   public int totalBoardCnt(PageVO page) throws Exception;
 
-//  public List<BoardVO> listSearchCriteria(SearchCriteria cri) 
-//      throws Exception;
-//
-//  public int listSearchCount(SearchCriteria cri) throws Exception;
-
+  public void updateReplyCnt(Integer bno, int amount) throws Exception;
+  
 }

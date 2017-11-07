@@ -63,7 +63,7 @@
 							   <c:forEach items="${list}" var="list">
 							   		<tr>
 							   			<td>${list.bno}</td>
-							   			<td><a href="/board/read?bno=${list.bno}&page=${pageMaker.page.page}&perPageNum=${pageMaker.page.perPageNum}&searchType=${pageMaker.page.searchType}&keyword=${pageMaker.page.keyword} ">${list.title}</a></td>
+							   			<td><a href="/board/read?bno=${list.bno}&page=${pageMaker.page.page}&perPageNum=${pageMaker.page.perPageNum}&searchType=${pageMaker.page.searchType}&keyword=${pageMaker.page.keyword} ">${list.title} <strong>[${list.replycnt}]</strong></a></td>
 							   			<td>${list.writer}</td>
 							   			
 							   			<jsp:useBean id="now" class="java.util.Date" />

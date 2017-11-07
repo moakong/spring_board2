@@ -12,7 +12,7 @@ public interface ReplyService {
 
 	public void modifyReply(ReplyVO vo) throws Exception;
 
-	public void removeReply(Integer rno) throws Exception;
+	public void removeReply(Integer bno, Integer rno) throws Exception;
 
 	public List<ReplyVO> listReplyPage(Integer bno, PageVO cri) throws Exception;
 
