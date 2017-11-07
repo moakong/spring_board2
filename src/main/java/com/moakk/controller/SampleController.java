@@ -1,18 +1,24 @@
 package com.moakk.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.moakk.mapper.MemberMapper;
 import com.moakk.vo.BoardVO;
 import com.moakk.vo.MemberVO;
 
 
-@Controller
+@RestController
 public class SampleController {
 
 	private static final Logger logger = LoggerFactory.getLogger(SampleController.class);
@@ -20,16 +26,16 @@ public class SampleController {
 	@Inject
 	private MemberMapper mapper;
 	
-	@RequestMapping("doA")
-	public void doA(){
+	@RequestMapping("a")
+	public String doA(){
 		
 		logger.info("doA called....................");
 		
-		System.out.println(mapper.getTime());
+		return "a called";
 	}
 	
-	@RequestMapping("doB")
-	public void doB(){
+	@RequestMapping("b")
+	public MemberVO doB(){
 		
 		logger.info("doB called....................");
 		
@@ -39,17 +45,46 @@ public class SampleController {
 		vo.setUsername("tester");
 		vo.setEmail("email!");
 		
-		mapper.insertMember(vo);
+		return vo;
 	}
 
 	
 	@RequestMapping("c")
-	public void c(){
+	public List<MemberVO> c(){
 		logger.info("c called....................");
 		
-		BoardVO vo = mapper.getBoard(3);
+		List<MemberVO> list = new ArrayList<>();
 		
-		System.out.println(vo);
+		for(int i = 0; i < 10; i++) {
+			MemberVO vo = new MemberVO();
+			vo.setUserid(i+"번");
+			vo.setUserpw("pw");
+			vo.setUsername("tester");
+			vo.setEmail("email!");
+			
+			list.add(vo);
+		}
+		
+		return list;
+	}
+	
+	@RequestMapping("d")
+	public Map<Integer, MemberVO> d(){
+		logger.info("c called....................");
+		
+		Map<Integer, MemberVO> map = new HashMap<>();
+		
+		for(int i = 0; i < 10; i++) {
+			MemberVO vo = new MemberVO();
+			vo.setUserid(i+"번");
+			vo.setUserpw("pw");
+			vo.setUsername("tester");
+			vo.setEmail("email!");
+			
+			map.put(i, vo);
+		}
+		
+		return map;
 	}
 	
 	

@@ -1,8 +1,5 @@
 package com.moakk.vo;
 
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
-
 public class PageMaker {
 
   private int totalCount;
@@ -11,7 +8,7 @@ public class PageMaker {
   private boolean prev;
   private boolean next;
 
-  // 페이지 개수는 보여지길 원하는 만큼 아래 변수에 넣으면 된다
+  // 페이지네이션 개수는 보여지길 원하는 만큼 아래 변수에 넣으면 된다
   private int displayPageNum = 5;
 
   private PageVO page;
@@ -33,7 +30,7 @@ public class PageMaker {
     calcData();
   }
   
-  // 사실상 setter역할(계산해서 채워 넣는다)
+  // 아래도 사실상 setter역할(계산해서 채워 넣는다)
   private void calcData() {
 
     endPage = (int) (Math.ceil(page.getPage() / (double) displayPageNum) * displayPageNum);
