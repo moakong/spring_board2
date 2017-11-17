@@ -24,5 +24,13 @@
 	<context:component-scan base-package="com.moakk.controller" />
 	
 	
-	
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="10485760"></beans:property>
+	</beans:bean>
+
+
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="/Users/jeongukjo/Documents/workspace(mac)/spring_board_final/file_upload">
+		</beans:constructor-arg>
+	</beans:bean>
 </beans:beans>

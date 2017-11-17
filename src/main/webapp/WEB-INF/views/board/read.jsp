@@ -7,6 +7,15 @@
 	<!-- Sweetalert Css -->
     <link href="/resources/plugins/sweetalert/sweetalert.css" rel="stylesheet" />
     
+    <!-- Lightbox2 Css -->
+ 	<link href="/resources/plugins/lightbox2/css/lightbox.css" rel="stylesheet">
+    
+    	<style>
+	.fileName {
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	</style>
 
 <section class="content">
         <div class="container-fluid">
@@ -48,6 +57,10 @@
                         
                         <div class="body">
                             <p>${boardVO.content}</p>
+                        
+	                        <div id="displayFile" class="row">
+	                        </div>
+	                        
                         </div>
                     </div>
                 </div>
@@ -68,9 +81,9 @@
                             </h2>
                         </div> -->
                         <div class="body">
-                        		<div>
-								<div class="btn-group align-right m-l-10 m-b-30" role="group">
-					                <button id="writeFormRp" type="button" class="btn btn-sm waves-effect" data-toggle="modal" data-target="#writeModal"><i class="material-icons">chat</i><span>댓글 쓰기</span></button>
+                        		<div class="align-right">
+								<div class="btn-group m-r-30" role="group">
+					                <button id="writeFormRp" type="button" class="btn btn-sm bg-deep-orange waves-effect" data-toggle="modal" data-target="#writeModal"><i class="material-icons">chat</i><span>댓글 쓰기</span></button>
 					            </div>
 				            </div> 
 				            
@@ -172,15 +185,44 @@
 <%@include file="../include/footer.jsp"%>
   
   
-  <!-- SweetAlert Plugin Js -->
-  <script src="/resources/plugins/sweetalert/sweetalert.min.js"></script>
-  <!-- handlebars Plugin Js -->
-  <script src="/resources/plugins/handlebars-v4.0.11.js"></script>
+	  <!-- SweetAlert Plugin Js -->
+	  <script src="/resources/plugins/sweetalert/sweetalert.min.js"></script>
+
+	  <!-- handlebars Plugin Js -->
+	  <script src="/resources/plugins/handlebars-v4.0.11.js"></script>
+  
+      <!-- lightbox2 Js -->
+    <script src="/resources/plugins/lightbox2/js/lightbox.js"></script>
   
   
+    <script type="text/javascript" src="/resources/js/upload.js"></script>
+  
+	<script id="displayFilesTemplate" type="text/x-handlebars-template">
+	{{#if isImg}}
+        <div class="col-sm-6 col-md-3 singleFile" data-fullname="{{fullName}}">
+            <div class="thumbnail">
+                <a class="example-image-link" href="{{getLink}}" data-lightbox="example-1">
+                    <img class="example-image" src="{{imgsrc}}" alt="image-1">
+                </a>
+                <div class="caption">
+                    <h5 class="fileName">{{fileName}}</h5>
+                </div>
+            </div>
+        </div>
+	{{else}}
+        <div class="col-sm-6 col-md-3 singleFile" data-fullname="{{fullName}}">
+            <div class="thumbnail">
+                <img src="{{imgsrc}}">
+                <div class="caption">
+                    <h5 class="fileName"><a href="{{getLink}}">{{fileName}}</h5>
+                </div>
+            </div>
+        </div>
+	{{/if}}
+	</script>
   
 	<script id="rpList" type="text/x-handlebars-template">
-		<div class="m-l-10 font-bold font-15">총 {{pageMaker.totalCount}}개</div>
+		<div id="rpCnt" class="m-l-10 font-bold font-15">댓글 총 {{pageMaker.totalCount}}개</div>
 		{{#each list}}
         <div class="media">
             <div class="media-left">
@@ -366,7 +408,7 @@
   	var getRpPage = function(pageInfo) {
   		$.getJSON(pageInfo, function(data) {
 			console.dir(data);
-			printData(data, $("#rpListDiv"), $('#rpList') ); ///////////////////////////////////////
+			printData(data, $("#rpListDiv"), $('#rpList') ); 
 			//printData(data.list, $("#rpPaginationDiv"), $('#rpPagination') );
 			getRpPagination(data.pageMaker, $("#rpPaginationDiv"));
 		})
@@ -408,6 +450,30 @@
 		        closeOnConfirm: true
 		    }, function () {
 		  	  	//self.location = "/board/delete?bno=" + ${boardVO.bno};
+		  	  	
+				var replyCnt =  $("#rpCnt").html().replace(/[^0-9]/g,""); // 숫자만 뽑아내기 
+				console.log("댓글 개수 : ", replyCnt);
+				
+				if(replyCnt > 0 ){
+					alert("댓글이 달린 게시물을 삭제할 수 없습니다.");
+					return;
+				}
+				
+				
+				var arr = [];
+				
+				$(".singleFile").each(function(index){
+					 arr.push($(this).data("fullname"));
+				});
+				
+				if(arr.length > 0){
+					$.post("/deleteAllFiles",{files:arr}, function(){
+						
+					});
+				}
+				
+				
+				
 		  	  	hForm.attr("action","/board/delete");
 		  	  	hForm.submit();
 		    });
@@ -431,6 +497,27 @@
 	});
  	
  	
+ 	
+ 	
+ 	
+ 	
+ 	/* 첨부파일 보이기 */
+	$.getJSON("/board/getAttach/"+bno, function(list){
+		console.log('bno=', bno);
+		console.dir(list);
+		
+		$(list).each(function(){
+			var template = Handlebars.compile($("#displayFilesTemplate").html());
+			
+			var fileInfo = getFileInfo(this);
+			
+			var html = template(fileInfo);
+			
+			 $("#displayFile").append(html);
+			
+		});
+	});
+
  	
   </script>
   

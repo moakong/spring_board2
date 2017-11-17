@@ -172,7 +172,8 @@
 <!--   <script src="/resources/js/pages/forms/advanced-form-elements.js"></script>
  -->  
   <script>
- 	if('${msg}' == 'success'){
+ 	/* 
+  	if('${msg}' == 'success'){
  		console.log('${msg}');
  		
  		swal({
@@ -185,7 +186,9 @@
 		        closeOnConfirm: true
 		    });
  	}
- 	
+ 	 */
+ 	 
+ 	 
  	/* $('.disabled').click(function(e){
  	     e.preventDefault();
  	  }); */

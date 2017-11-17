@@ -20,10 +20,18 @@ public class BoardServiceImpl implements BoardService {
 
 	@Inject
 	private BoardMapper mapper;
-
+	
+	@Transactional
 	@Override
 	public void register(BoardVO board) throws Exception {
 		mapper.create(board);
+		
+		String[] files = board.getFiles();
+		if(files == null) return;
+		
+		for(String fileName: files) {
+			mapper.addAttach(fileName);
+		}
 	}
 
 	@Transactional
@@ -33,14 +41,38 @@ public class BoardServiceImpl implements BoardService {
 		
 		return mapper.read(bno);
 	}
-
+	
+	@Transactional
 	@Override
 	public void update(BoardVO board) throws Exception {
+		// 게시글 처리 
 		mapper.update(board);
+		
+		
+		// 첨부파일 처리 
+		Integer bno = board.getBno();
+		mapper.deleteAttach(bno);
+		
+		String[] files = board.getFiles();
+		
+		if(files == null) return;
+		
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		
+		for(String fileName : files) {
+			paramMap.put("bno", bno);
+			paramMap.put("fullName", fileName);
+			
+			mapper.updateAttach(paramMap);
+		}
+		
 	}
 
+	@Transactional
 	@Override
 	public void delete(Integer bno) throws Exception {
+		mapper.deleteAttach(bno);
 		mapper.delete(bno);
 	}
 
@@ -65,7 +97,15 @@ public class BoardServiceImpl implements BoardService {
 		mapper.updateReplyCnt(paramMap);
 	}
 
+	@Override
+	public List<String> getAttach(Integer bno) throws Exception {
+			
+		return mapper.getAttach(bno);
+	}
 
+	
+	
+	
 }
 
 

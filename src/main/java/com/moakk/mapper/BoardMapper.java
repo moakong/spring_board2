@@ -23,4 +23,12 @@ public interface BoardMapper {
 	public void updateReplyCnt(Map<String, Object> param) throws Exception;
 
 	public void updateViewCnt(Integer bno) throws Exception;
+
+	public void addAttach(String fullName) throws Exception;
+	
+	public List<String> getAttach(Integer bno) throws Exception;
+	
+	public void deleteAttach(Integer bno) throws Exception;
+
+	public void updateAttach(Map<String, Object> param) throws Exception;
 }

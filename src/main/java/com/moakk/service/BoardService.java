@@ -22,4 +22,7 @@ public interface BoardService {
 
   public void updateReplyCnt(Integer bno, int amount) throws Exception;
   
+  public List<String> getAttach(Integer bno) throws Exception;
+
+  
 }
